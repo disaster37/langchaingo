@@ -292,3 +292,24 @@ func WithPullTimeout(timeout time.Duration) Option {
 		opts.pullTimeout = timeout
 	}
 }
+
+// WithTemperature sets the temperature for text generation.
+func WithTemperature(temperature float32) Option {
+	return func(opts *options) {
+		opts.ollamaOptions.Temperature = temperature
+	}
+}
+
+// WithNumPredict sets the number of tokens to predict.
+func WithNumPredict(numPredict int) Option {
+	return func(opts *options) {
+		opts.ollamaOptions.NumPredict = numPredict
+	}
+}
+
+// WithOllamaOptions sets the ollama client options directly.
+func WithOllamaOptions(ollamaOpts ollamaclient.Options) Option {
+	return func(opts *options) {
+		opts.ollamaOptions = ollamaOpts
+	}
+}
