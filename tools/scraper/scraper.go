@@ -260,5 +260,7 @@ func (s Scraper) Call(ctx context.Context, input string) (string, error) {
 		siteData.WriteString("\n" + link)
 	}
 
+	logrus.Debugf("Scraping completed: %s", siteData.String())
+
 	return siteData.String(), nil
 }
