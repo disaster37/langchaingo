@@ -107,7 +107,7 @@ func (s Scraper) Call(ctx context.Context, input string) (string, error) {
 	)
 
 	if os.Getenv("HTTP_PROXY") != "" {
-		logrus.Debugf("Set proxy on colly: %s", os.Getenv("HTTP_PROXY"))
+		logrus.Debugf("Set proxy on colly: '%s'", os.Getenv("HTTP_PROXY"))
 		if err = c.SetProxy(os.Getenv("HTTP_PROXY")); err != nil {
 			return "", errors.New("error when set proxy")
 		}
