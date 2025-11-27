@@ -7,6 +7,7 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/sirupsen/logrus"
 	"github.com/tmc/langchaingo/callbacks"
 	"github.com/tmc/langchaingo/chains"
 	"github.com/tmc/langchaingo/llms"
@@ -138,6 +139,9 @@ func constructScratchPad(steps []schema.AgentStep) string {
 }
 
 func (a *ConversationalAgent) parseOutput(output string) ([]schema.AgentAction, *schema.AgentFinish, error) {
+	
+	logrus.Debugf("Agent output: %s", output)
+	
 	if strings.Contains(output, _conversationalFinalAnswerAction) {
 		splits := strings.Split(output, _conversationalFinalAnswerAction)
 
