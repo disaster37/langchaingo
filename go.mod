@@ -295,7 +295,7 @@ require (
 	github.com/rs/zerolog v1.31.0 // indirect
 	github.com/shirou/gopsutil/v4 v4.25.5 // indirect
 	github.com/shopspring/decimal v1.2.0 // indirect
-	github.com/sirupsen/logrus v1.9.3 // indirect
+	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/tidwall/gjson v1.17.1 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
@@ -315,6 +315,7 @@ require (
 )
 
 require (
+	emperror.dev/errors v0.8.1
 	github.com/milvus-io/milvus/client/v2 v2.6.0
 	github.com/testcontainers/testcontainers-go/modules/mariadb v0.38.0
 )

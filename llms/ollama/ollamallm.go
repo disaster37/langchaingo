@@ -2,10 +2,10 @@ package ollama
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"strings"
 
+	"emperror.dev/errors"
 	"github.com/tmc/langchaingo/callbacks"
 	"github.com/tmc/langchaingo/llms"
 	"github.com/tmc/langchaingo/llms/ollama/internal/ollamaclient"
@@ -175,7 +175,7 @@ func (o *LLM) GenerateContent(ctx context.Context, messages []llms.MessageConten
 	fn = func(response ollamaclient.ChatResponse) error {
 		if opts.StreamingFunc != nil && response.Message != nil {
 			if err := opts.StreamingFunc(ctx, []byte(response.Message.Content)); err != nil {
-				return err
+				return errors.Wrapf(err, "error when processing streaming response: %s", response.Message.Content)
 			}
 		}
 		if response.Message != nil {
@@ -196,7 +196,7 @@ func (o *LLM) GenerateContent(ctx context.Context, messages []llms.MessageConten
 		if o.CallbacksHandler != nil {
 			o.CallbacksHandler.HandleLLMError(ctx, err)
 		}
-		return nil, err
+		return nil, errors.Wrap(err, "ollama GenerateChat error")
 	}
 
 	// Handle case where Message might be nil (e.g., context cancelled during streaming)
