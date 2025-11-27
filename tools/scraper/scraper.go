@@ -5,11 +5,13 @@ import (
 	"errors"
 	"fmt"
 	"net/url"
+	"os"
 	"strings"
 	"sync"
 	"time"
 
 	"github.com/gocolly/colly"
+	"github.com/sirupsen/logrus"
 	"github.com/tmc/langchaingo/tools"
 )
 
@@ -103,6 +105,11 @@ func (s Scraper) Call(ctx context.Context, input string) (string, error) {
 		colly.MaxDepth(s.MaxDepth),
 		colly.Async(s.Async),
 	)
+
+	if os.Getenv("HTTP_PROXY") != "" {
+		logrus.Debug("Set proxy on colly")
+		_ = c.SetProxy(os.Getenv("HTTP_PROXY"))
+	}
 
 	err = c.Limit(&colly.LimitRule{
 		DomainGlob:  "*",
