@@ -219,16 +219,18 @@ func (s Scraper) Call(ctx context.Context, input string) (string, error) {
 		}
 
 		// Only visit the page if it hasn't been visited yet
-		scrapedLinksMutex.RLock()
-		if !scrapedLinks[u.String()] {
-			scrapedLinksMutex.RUnlock()
-			err := c.Visit(u.String())
-			if err != nil {
-				siteData.WriteString(fmt.Sprintf("\nError following link %s: %v", link, err))
+		/*
+			scrapedLinksMutex.RLock()
+			if !scrapedLinks[u.String()] {
+				scrapedLinksMutex.RUnlock()
+				err := c.Visit(u.String())
+				if err != nil {
+					siteData.WriteString(fmt.Sprintf("\nError following link %s: %v", link, err))
+				}
+			} else {
+				scrapedLinksMutex.RUnlock()
 			}
-		} else {
-			scrapedLinksMutex.RUnlock()
-		}
+		*/
 	})
 
 	err = c.Visit(input)
